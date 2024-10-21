@@ -38,7 +38,11 @@ if(typeof status === 'boolean') {
 // console.log(book1.getDetails());
 // console.log(book1.isAvailable);
 
-// remove // from ^^^^^^^^^
+// remove // from ^^^^^^^^^ MIght need to comment out task e
+
+
+// ********** GOING FORWARD YOU MAY NEED TO comment out // TASK 6 to test each section *******************
+
 
 // TASK 2
 
@@ -208,3 +212,44 @@ Patron.prototype.listBooks = function() {
 // // Calculate and print the total available books before any are borrowed
 // console.log(`Total available books: ${patron.calculateTotalBooksAvailable()}`);
 
+
+
+// Task 6 - library structir
+
+// Create sections
+const fiction = new Section("Fiction");
+const science = new Section("Science");
+
+// Create books
+const book1 = new Book("the game", "Neal Yates", "123098");
+const book2 = new Book("The new Game", "Kyle Malone", "123097");
+const book3 = new Book("The newest game", "Carl Malone", "123096");
+const book4 = new Book("The newer newest game", "Steve Harvey", "123095");
+
+// Add books to sections
+fiction.addBook(book1);
+fiction.addBook(book2);
+science.addBook(book3);
+science.addBook(book4);
+
+// Create patrons
+const patron1 = new Patron("Steve");
+const patron2 = new Patron("Mike");
+const vipPatron = new VIPPatron("Andrew");
+
+// Patrons borrow books
+patron1.borrowedBook(book1); // Steve borrows book1
+patron2.borrowedBook(book2); // Mike borrows book2
+vipPatron.borrowedBook(book3); // Andrew borrows book3
+
+// Calculate the total available books in the sect
+console.log(`Total available books in Fiction: ${fiction.books.filter(book => book.isAvailable).length}`);
+console.log(`Total available books in Science: ${science.books.filter(book => book.isAvailable).length}`);
+
+//  return books
+patron1.returnBook(book1); // Steve returns book1
+vipPatron.returnBook(book3); // Andrew returns book3
+
+// Calculate the total available books in section agains
+console.log(`Total available books in Fiction: ${fiction.books.filter(book => book.isAvailable).length}`);
+console.log(`Total available books in Science: ${science.books.filter(book => book.isAvailable).length}`);
