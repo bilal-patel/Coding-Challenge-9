@@ -91,38 +91,33 @@ return this.books.filter(book => book.isAvailable).length;
 // TASK 3 
 
 
+// TASK 3 - Define the Patron class
 class Patron {
     constructor(name) {
         this.name = name;
         this.borrowedBooks = [];
     }
 
-//borrow book is available
-
-borrowedBook (book) {
-    if (book.isAvailable) { // check is book is available
-        book.isAvailable = false; // update status
-        this.borrowedBooks.push(book);
-        console.log(`${book.title} is borrowed by ${this.name}`)
-    } else{
-        console.log(`Not available: ${book.title}`)
+    // Borrow a book if it is available
+    borrowedBook(book) {
+        if (book.isAvailable) { book.isAvailable = false; // Mark the book as borrowed.
+            this.borrowedBooks.push(book); // Add to borrowedBooks.
+            console.log(`${book.title} is borrowed by ${this.name}`);
+        } else {
+            console.log(`Not available: ${book.title}`);
+        }
     }
-}
-// return borrowed book
- returnBook (book) {
- const index = this.borrowedBooks.indexOf(book); // find using index method
 
-
- //check if book is available
- if (index !== -1) {book.isAvailable = true;
-    this.borrowedBooks.splice(index, 1); //remove book from the borrow array
-    console.log(`${book.title} returned by ${this.name}`); /// log return
- } else {
-
-    console.log(`${book.title} not borrowed by ${this.name}`);
- }
-
-}
+    // Return a borrowed book
+    returnBook(book) {
+        const index = this.borrowedBooks.indexOf(book);
+        if (index !== -1) {
+            book.isAvailable = true; // Set the book as available again.
+            this.borrowedBooks.splice(index, 1); // Remove the book from borrowedBooks.
+            console.log(`${book.title} returned by ${this.name}`);
+        } else {
+            console.log(`${book.title} not borrowed by ${this.name}`); }
+    }
 }
 
 // // Test Below by removing //
@@ -144,27 +139,21 @@ borrowedBook (book) {
 
 // ouput: the game returned by Steve 
 
-/// TASK 4 - Create a VIPPatron Class that Inherits from Patron
-
+// TASK 4 - Create a VIPPatron Class that Inherits from Patron
 class VIPPatron extends Patron {
     constructor(name) {
         super(name);
-        this.priority = [true];
-}
-// override the boorroedd book for priority
+        this.priority = true; // Adding boolean
+    }
 
-borrowedBook(book) {
-
-if (book.isAvailable) { // check is book is available
-    book.isAvailable = false; // update status
-    this.borrowedBooks.push(book);
-    console.log(`${book.title} is borrowed by VIP ${this.name}`)
-} else{
-    console.log(`Not available: ${book.title} - VIP ${this.name} wants it next`)
-}
-}
-
-
+    // Override the borrowedBook method for priority
+    borrowedBook(book) {
+        if (book.isAvailable) {book.isAvailable = false; // marks the book as borrowed
+            this.borrowedBooks.push(book);
+            console.log(`${book.title} is borrowed by VIP ${this.name}`);
+        } else {
+            console.log(`Not available: ${book.title} - VIP ${this.name} wants it next`); }
+    }
 }
 
 // // Test Below by removing //
@@ -189,3 +178,33 @@ if (book.isAvailable) { // check is book is available
 
 
 // you can remove ^^^^^ //
+
+// TASK 5 - Methods for Adding Books and Calculating Availability
+// Adding methods directly to the existing Patron class logic
+Patron.prototype.addBook = function(book) { // patron class already defined, using prototype since it only way found to remove error
+    this.borrowedBooks.push(book);
+};
+
+Patron.prototype.calculateTotalBooksAvailable = function() {
+    return this.borrowedBooks.filter(book => book.isAvailable).length;
+};
+
+Patron.prototype.listBooks = function() {
+    console.log(`Books borrowed by ${this.name}:`); this.borrowedBooks.forEach(book =>
+        console.log(`- ${book.title} (${book.isAvailable ? "Available" : "Borrowed"})`)); // using function from earlier
+};
+
+// Test for Tas 5 below
+// const book1 = new Book("the Game", "Neal Yates", "123098");
+// const book2 = new Book("The New Game", "Kyle Malone", "123097");
+
+// // Create a new patron for testing Task 5
+// const patron = new Patron("Steve");
+
+// // Add books to the patron's borrowedBooks
+// patron.addBook(book1);
+// patron.addBook(book2);
+
+// // Calculate and print the total available books before any are borrowed
+// console.log(`Total available books: ${patron.calculateTotalBooksAvailable()}`);
+
