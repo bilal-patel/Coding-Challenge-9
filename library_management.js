@@ -144,3 +144,48 @@ borrowedBook (book) {
 
 // ouput: the game returned by Steve 
 
+/// TASK 4 - Create a VIPPatron Class that Inherits from Patron
+
+class VIPPatron extends Patron {
+    constructor(name) {
+        super(name);
+        this.priority = [true];
+}
+// override the boorroedd book for priority
+
+borrowedBook(book) {
+
+if (book.isAvailable) { // check is book is available
+    book.isAvailable = false; // update status
+    this.borrowedBooks.push(book);
+    console.log(`${book.title} is borrowed by VIP ${this.name}`)
+} else{
+    console.log(`Not available: ${book.title} - VIP ${this.name} wants it next`)
+}
+}
+
+
+}
+
+// // Test Below by removing //
+// const book1 = new Book  ("the game", "Neal Yates", "123098");
+
+
+// // // Create a new patron and VIP
+// const patron = new Patron("Steve");
+// const vipPatron = new VIPPatron("Clark");
+
+// // //Add books to the patron borrows
+// patron.borrowedBook(book1);
+
+
+// // // reutrn book
+// vipPatron.borrowedBook(book1);
+
+// // output will be
+
+// "the game is borrowed by Steve
+// Not available: the game - VIP Clark wants it next"
+
+
+// you can remove ^^^^^ //
